@@ -19,7 +19,7 @@
 
 # Configure SSH Access for GitHub Actions
 <p>
-  Your GitHub Actions workflow needs a way to connect to EC2 securely.
+  Your GitHub Actions workflow needs a way to connect to EC2 securely. <br>
   On your local machine, generate a new SSH key (don’t overwrite your existing one):
 </p>
 
