@@ -26,7 +26,7 @@
 Save it as github-ci-key (private) and github-ci-key.pub (public).
 </p> 
 
-# What is ~/.ssh/authorized_keys?
+# 1. What is ~/.ssh/authorized_keys?
 <p>
     On your EC2 instance, SSH checks a file called ~/.ssh/authorized_keys (inside the home folder of the user, e.g. ubuntu).
 <br>
@@ -42,7 +42,7 @@ you see like
     
 </p>
 
-# you generate a new SSH key pair on your local machine:
+# 2. you generate a new SSH key pair on your local machine:
 
             cat ~/.ssh/github-ci-key
 <p>
@@ -51,7 +51,8 @@ you see like
             -----BEGIN OPENSSH PRIVATE KEY-----
         (lots of characters here)
         -----END OPENSSH PRIVATE KEY-----
-
+*Copy the entire block, including BEGIN and END.*
 </p>
+
 
 
