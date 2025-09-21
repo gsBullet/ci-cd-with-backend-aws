@@ -1,5 +1,6 @@
 # Create workflow file
 **.github/workflows/deploy.yml*
+
     name: Deploy to EC2
 
     on:
