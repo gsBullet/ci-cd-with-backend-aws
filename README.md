@@ -21,5 +21,23 @@
 <p>
   Your GitHub Actions workflow needs a way to connect to EC2 securely. <br>
   On your local machine, generate a new SSH key (don’t overwrite your existing one):
-</p>
+    
+           ssh-keygen -t rsa -b 4096 -C "github-ci"
+Save it as github-ci-key (private) and github-ci-key.pub (public).
+</p> 
 
+# What is ~/.ssh/authorized_keys?
+<p>
+    On your EC2 instance, SSH checks a file called ~/.ssh/authorized_keys (inside the home folder of the user, e.g. ubuntu).
+<br>
+That file contains a list of public keys that are allowed to connect without typing a password.
+check it your aws ubontu
+    
+        cat ~/.ssh/authorized_keys
+
+<br>
+    
+</p>
+# you generate a new SSH key pair on your local machine:
+
+            cat ~/.ssh/github-ci-key
