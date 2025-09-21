@@ -42,7 +42,7 @@ you see like
     
 </p>
 
-# 2. you generate a new SSH key pair on your local machine:
+# 2. you generate a new SSH key pair on your local machine: (private key)
 
             cat ~/.ssh/github-ci-key
 <p>
@@ -53,6 +53,43 @@ you see like
         -----END OPENSSH PRIVATE KEY-----
 *Copy the entire block, including BEGIN and END.*
 </p>
+
+# 3. you generate a new SSH key pair on your local machine: (Public  key)
+        cat github-ci-key.pub
+<p>
+    you will see like this
+
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4/GtIuHKFUBMCJbRTTQabEQC7ez6J... github-ci
+</p>
+
+# 4. Permissions must be correct in your ASW ubuntu
+    chmod 700 ~/.ssh
+    chmod 600 ~/.ssh/authorized_keys
+# 5. Add your new key to the correct user: github-ci-key.pub
+        echo "paste-your-github-ci-key.pub-content-here" >> ~/.ssh/authorized_keys
+# 6. Again permission 
+         chmod 700 ~/.ssh
+        chmod 600 ~/.ssh/authorized_keys
+
+# 7. Test again from your local machine: your aws public IP
+        ssh -i github-ci-key ubuntu@<IP>
+<p>
+    Perfect 🎉 That means your GitHub Actions private key (github-ci-key) and the public key on EC2 are now matched.
+</p>
+
+# ✅ Next Steps: Setup GitHub Actions
+<p>
+    Go to: GitHub → Your Repo → Settings → Secrets and variables → Actions → Repository secrets
+<br>
+    *EC2_SSH_KEY → contents of your github-ci-key (private key) <br>
+(full block including -----BEGIN OPENSSH PRIVATE KEY----- … -----END OPENSSHPRIVATE KEY-----)
+</p>
+<p>
+    *EC2_HOST → your EC2 public IP <br>
+    *EC2_USER → usually ubuntu (or ec2-user for Amazon Linux)
+</p>
+
+
 
 
 
