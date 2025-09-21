@@ -36,7 +36,9 @@ check it your aws ubontu
         cat ~/.ssh/authorized_keys
 
 <br>
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4/GtIuHKFUBMCJbRTTQa.............../5MQ== github-ci
+you see like 
+
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4/GtIuHKFUBMCJbRTTQa.............../5MQ== github-ci
     
 </p>
 
@@ -44,9 +46,11 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4/GtIuHKFUBMCJbRTTQa.............../5MQ==
 
             cat ~/.ssh/github-ci-key
 <p>
-    -----BEGIN OPENSSH PRIVATE KEY-----
-(lots of characters here)
------END OPENSSH PRIVATE KEY-----
+    you can see like this
+    
+            -----BEGIN OPENSSH PRIVATE KEY-----
+        (lots of characters here)
+        -----END OPENSSH PRIVATE KEY-----
 
 </p>
 
