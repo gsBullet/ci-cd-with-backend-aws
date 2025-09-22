@@ -3,3 +3,7 @@
 # Check status:
     pm2 list
     pm2 logs my-app
+# Commit your changes
+    git add server/app.js
+    git commit -m "Save local changes before pulling"
+    git pull --no-rebase  
