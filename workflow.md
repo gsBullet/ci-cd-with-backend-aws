@@ -1,50 +1,50 @@
 # Create workflow file
 .github/workflows/deploy.yml
 
-   name: Deploy to EC2
+      name: Deploy to EC2
 
-on:
-  push:
-    branches: [main]
+      on:
+        push:
+          branches: [main]
 
-jobs:
-  deploy:
-    runs-on: ubuntu-22.04
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      jobs:
+        deploy:
+          runs-on: ubuntu-22.04
+          steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
 
-    - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.9.0
-      with:
-        ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
-
-    - name: Add EC2 to known_hosts
-      run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
-        chmod 600 ~/.ssh/known_hosts
-
-    - name: Test SSH connection with verbose output
-      run: |
-        ssh -v -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "echo 'SSH connection successful'"
-
-    - name: Deploy to EC2
-      if: success()
-      run: |
-        ssh -o ConnectTimeout=30 -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} '
-          set -e
-          cd /var/www/nodeapp/xenon-api || { echo "Directory not found"; exit 1; }
-          git fetch origin
-          git reset --hard origin/main
-          npm install  
-          
-          # Check if PM2 process exists before restarting
-          if pm2 list | grep -q "my-app"; then
-            pm2 restart "my-app" -- run dev --watch
-          else
-            pm2 start npm --name "my-app" -- run dev --watch
-          fi
-          
-          pm2 save
-        '
+       - name: Setup SSH
+         uses: webfactory/ssh-agent@v0.9.0
+         with:
+           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+   
+       - name: Add EC2 to known_hosts
+         run: |
+           mkdir -p ~/.ssh
+           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+           chmod 600 ~/.ssh/known_hosts
+   
+       - name: Test SSH connection with verbose output
+         run: |
+           ssh -v -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "echo 'SSH connection successful'"
+   
+       - name: Deploy to EC2
+         if: success()
+         run: |
+           ssh -o ConnectTimeout=30 -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} '
+             set -e
+             cd /var/www/nodeapp/xenon-api || { echo "Directory not found"; exit 1; }
+             git fetch origin
+             git reset --hard origin/main
+             npm install  
+             
+             # Check if PM2 process exists before restarting
+             if pm2 list | grep -q "my-app"; then
+               pm2 restart "my-app" -- run dev --watch
+             else
+               pm2 start npm --name "my-app" -- run dev --watch
+             fi
+             
+             pm2 save
+           '
